@@ -95,7 +95,11 @@ boolean                 EcatError = FALSE;
 int64                   ec_DCtime;
 
 ecx_portt               ecx_port;
+// secondary port is not supported
+// because NUCLEO-F767ZI has only one LAN port
+#if 0
 ecx_redportt            ecx_redport;
+#endif
 
 ecx_contextt  ecx_context = {
     &ecx_port,          // .port          =
@@ -288,6 +292,9 @@ int ecx_init(ecx_contextt *context, const char * ifname)
    return ecx_setupnic(context->port, ifname, FALSE);
 }
 
+// secondary port is not supported
+// because NUCLEO-F767ZI has only one LAN port
+#if 0
 /** Initialise lib in redundant NIC mode
  * @param[in]  context  = context struct
  * @param[in]  redport  = pointer to redport, redundant port data
@@ -312,6 +319,7 @@ int ecx_init_redundant(ecx_contextt *context, ecx_redportt *redport, const char 
 
    return rval;
 }
+#endif
 
 /** Close lib.
  * @param[in]  context        = context struct
@@ -2035,6 +2043,9 @@ int ec_init(const char * ifname)
    return ecx_init(&ecx_context, ifname);
 }
 
+// secondary port is not supported
+// because NUCLEO-F767ZI has only one LAN port
+#if 0
 /** Initialise lib in redundant NIC mode
  * @param[in]  ifname   = Primary Dev name, f.e. "eth0"
  * @param[in]  if2name  = Secondary Dev name, f.e. "eth1"
@@ -2045,6 +2056,7 @@ int ec_init_redundant(const char *ifname, char *if2name)
 {
    return ecx_init_redundant (&ecx_context, &ecx_redport, ifname, if2name);
 }
+#endif
 
 /** Close lib.
  * @see ecx_close
@@ -2054,6 +2066,9 @@ void ec_close(void)
    ecx_close(&ecx_context);
 };
 
+// secondary port is not supported
+// because NUCLEO-F767ZI has only one LAN port
+#if 0
 /** Read one byte from slave EEPROM via cache.
  *  If the cache location is empty then a read request is made to the slave.
  *  Depending on the slave capabillities the request is 4 or 8 bytes.
@@ -2066,6 +2081,8 @@ uint8 ec_siigetbyte(uint16 slave, uint16 address)
 {
    return ecx_siigetbyte (&ecx_context, slave, address);
 }
+}
+#endif
 
 /** Find SII section header in slave EEPROM.
  *  @param[in] slave   = slave number

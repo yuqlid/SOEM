@@ -2066,9 +2066,6 @@ void ec_close(void)
    ecx_close(&ecx_context);
 };
 
-// secondary port is not supported
-// because NUCLEO-F767ZI has only one LAN port
-#if 0
 /** Read one byte from slave EEPROM via cache.
  *  If the cache location is empty then a read request is made to the slave.
  *  Depending on the slave capabillities the request is 4 or 8 bytes.
@@ -2081,8 +2078,6 @@ uint8 ec_siigetbyte(uint16 slave, uint16 address)
 {
    return ecx_siigetbyte (&ecx_context, slave, address);
 }
-}
-#endif
 
 /** Find SII section header in slave EEPROM.
  *  @param[in] slave   = slave number

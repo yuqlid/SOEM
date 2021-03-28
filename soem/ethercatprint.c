@@ -299,7 +299,12 @@ char* ec_mbxerror2string( uint16 errorcode)
 char* ecx_err2string(const ec_errort Ec)
 {
    char timestr[20];
-   sprintf(timestr, "Time:%12.3f", Ec.Time.sec + (Ec.Time.usec / 1000000.0) );
+   // TODO only use usec counter instead of real time clock
+#if 0
+      sprintf(timestr, "Time:%12.3f", Ec.Time.sec + (Ec.Time.usec / 1000000.0) );
+#else
+      sprintf(timestr, "Time:%10lu", Ec.Time );
+#endif
    switch (Ec.Etype)
    {
       case EC_ERR_TYPE_SDO_ERROR:

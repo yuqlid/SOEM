@@ -33,6 +33,8 @@ typedef uint64_t            uint64;
 typedef float               float32;
 typedef double              float64;
 
+// TODO ec_timet is not compatible with regular SOEM.
+#if 0
 typedef struct
 {
     uint32 sec;     /*< Seconds elapsed since the Epoch (Jan 1, 1970) */
@@ -43,6 +45,19 @@ typedef struct osal_timer
 {
     ec_timet stop_time;
 } osal_timert;
+
+#else
+
+// elapsed time [usec] from start-up, not linux time
+typedef uint32 ec_timet;
+
+typedef struct osal_timer
+{
+    ec_timet start_time;
+    ec_timet timeout;
+} osal_timert;
+
+#endif
 
 void osal_timer_start(osal_timert * self, uint32 timeout_us);
 boolean osal_timer_is_expired(osal_timert * self);
